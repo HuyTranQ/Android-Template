@@ -32,7 +32,7 @@ public class Database extends SQLiteOpenHelper {
     private void copyDatabase(Context context) {
         String databasePath = Storage.getDatabasePath(context , NAME);
         if (Storage.exists(databasePath)) {
-            Log.d(DEBUG , "User database already exists");
+            Log.d(DEBUG , "database already exists");
         }
         else {
             try {
