@@ -39,7 +39,7 @@ public class Database extends SQLiteOpenHelper {
                 Storage.copyAsset(context , NAME , databasePath);
             }
             catch (Exception exception) {
-                Log.d(DEBUG , "Cannot create database file! " + exception.getMessage());
+                Log.d(DEBUG , "Cannot fucking copy asset! Dude! " + exception.getMessage());
             }
         }
     }
