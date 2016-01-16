@@ -12,6 +12,8 @@ import huytranq.template.R;
 /**
  * Created by huytr on 11-01-2016.
  */
+
+
 public final class Resource {
 
     public enum Type {
@@ -46,14 +48,27 @@ public final class Resource {
         }
     }
 
-    public static int getResourceId(Context context ,
-                                    String name ,
-                                    Type type) {
+    private static Context context;
+    private static Resource resource;
+
+    private Resource() {
+    }
+
+    public static Resource from(Context activityContext) {
+        if (context == null) {
+            context = activityContext.getApplicationContext();
+            resource = new Resource();
+        }
+        return resource;
+    }
+
+    public int getResourceId(String name ,
+                             Type type) {
         String packageName = context.getPackageName();
         return context.getResources().getIdentifier(name , type.value() , packageName);
     }
 
-    public static int getColorId(String name) {
+    public int getColorId(String name) {
         int result = -1;
         try {
             result = R.color.class.getField(name).getInt(null);
@@ -63,93 +78,75 @@ public final class Resource {
         return result;
     }
 
-    public static String getString(Context context ,
-                                   String name) {
-        return context.getResources().getString(getResourceId(context, name, Type.STRING));
+    public String getString(String name) {
+        return context.getResources().getString(getResourceId(name, Type.STRING));
     }
 
-    public static String getString(Context context ,
-                                   int id) {
+    public String getString(int id) {
         return context.getResources().getString(id);
     }
 
-    public static int getInteger(Context context ,
-                                 String name) {
-        return context.getResources().getInteger(getResourceId(context, name, Type.INTEGER));
+    public int getInteger(String name) {
+        return context.getResources().getInteger(getResourceId(name, Type.INTEGER));
     }
 
-    public static int getInteger(Context context ,
-                                 int id) {
+    public int getInteger(int id) {
         return context.getResources().getInteger(id);
     }
 
-    public static String[] getStringArray(Context context ,
-                                          String name) {
-        return context.getResources().getStringArray(getResourceId(context, name, Type.STRING_ARRAY));
+    public String[] getStringArray(String name) {
+        return context.getResources().getStringArray(getResourceId(name, Type.STRING_ARRAY));
     }
 
-    public static String[] getStringArray(Context context ,
-                                          int id) {
+    public String[] getStringArray(int id) {
         return context.getResources().getStringArray(id);
     }
 
-    public static int[] getIntegerArray(Context context ,
-                                        String name) {
-        return context.getResources().getIntArray(getResourceId(context, name, Type.INTEGER_ARRAY));
+    public int[] getIntegerArray(String name) {
+        return context.getResources().getIntArray(getResourceId(name, Type.INTEGER_ARRAY));
     }
 
-    public static int[] getIntegerArray(Context context ,
-                                        int id) {
+    public int[] getIntegerArray(int id) {
         return context.getResources().getIntArray(id);
     }
 
-    public static boolean getBoolean(Context context ,
-                                     String name) {
-        return context.getResources().getBoolean(getResourceId(context, name, Type.BOOLEAN));
+    public boolean getBoolean(String name) {
+        return context.getResources().getBoolean(getResourceId(name, Type.BOOLEAN));
     }
 
-    public static boolean getBoolean(Context context ,
-                                     int id) {
+    public boolean getBoolean(int id) {
         return context.getResources().getBoolean(id);
     }
 
-    public static int getColor(Context context ,
-                               int id) {
+    public int getColor(int id) {
         return ContextCompat.getColor(context, id);
     }
 
-    public static int getColor(Context context ,
-                               String name) {
+    public int getColor(String name) {
         return ContextCompat.getColor(context , getColorId(name));
     }
 
-    public static TypedArray getTypedArray(Context context ,
-                                           int id) {
+    public TypedArray getTypedArray(int id) {
         return context.getResources().obtainTypedArray(id);
     }
 
-    public static TypedArray getTypedArray(Context context ,
-                                           String name) {
-        return context.getResources().obtainTypedArray(getResourceId(context , name , Type.TYPED_ARRAY));
+    public TypedArray getTypedArray(String name) {
+        return context.getResources().obtainTypedArray(getResourceId(name , Type.TYPED_ARRAY));
     }
 
-    public static float getDimension(Context context ,
-                                     String name) {
-        return context.getResources().getDimension(getResourceId(context, name, Type.DIMEN));
+    public float getDimension(String name) {
+        return context.getResources().getDimension(getResourceId(name, Type.DIMEN));
     }
 
-    public static float getDimension(Context context ,
-                                     int id) {
+    public float getDimension(int id) {
         return context.getResources().getDimension(id);
     }
 
-    public static Drawable getDrawable(Context context ,
-                                       int id) {
+    public Drawable getDrawable(int id) {
         return ContextCompat.getDrawable(context, id);
     }
 
-    public static Drawable getDrawable(Context context ,
-                                       String name) {
-        return ContextCompat.getDrawable(context , getResourceId(context , name , Type.DRAWABLE));
+    public Drawable getDrawable(String name) {
+        return ContextCompat.getDrawable(context , getResourceId(name , Type.DRAWABLE));
     }
 }
