@@ -48,16 +48,16 @@ public final class Resource {
         }
     }
 
-    private static Context context;
+    private Context context;
     private static Resource resource;
 
-    private Resource() {
+    private Resource(Context activityContext) {
+        context = activityContext.getApplicationContext();
     }
 
-    public static Resource from(Context activityContext) {
-        if (context == null) {
-            context = activityContext.getApplicationContext();
-            resource = new Resource();
+    public static Resource from(Context context) {
+        if (resource == null) {
+            resource = new Resource(context);
         }
         return resource;
     }

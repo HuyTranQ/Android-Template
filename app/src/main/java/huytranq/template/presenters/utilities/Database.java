@@ -24,7 +24,7 @@ public class Database extends SQLiteOpenHelper {
     private static SQLiteDatabase database;
 
     private Database(Context context) {
-        super(context , NAME , null , VERSION);
+        super(context.getApplicationContext() , NAME , null , VERSION);
         //  TODO    Initialize database file
         copyDatabase(context);
     }
@@ -46,7 +46,7 @@ public class Database extends SQLiteOpenHelper {
 
     public static synchronized Database getInstance(Context context) {
         if (instance == null)
-            instance = new Database(context);
+            instance = new Database(context.getApplicationContext());
         return instance;
     }
 
