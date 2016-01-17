@@ -16,16 +16,16 @@ import huytranq.template.R;
 
 public final class Resource {
 
+    public static final int FRAGMENT_TAGS = R.array.tagFragment;
+
     public enum Type {
         BOOLEAN("bool") ,
         COLOR("color") ,
         DIMEN("dimen") ,
-        ID("item") ,
+        ID("id") ,
         INTEGER("integer") ,
-        INTEGER_ARRAY("integer-array") ,
-        TYPED_ARRAY("array") ,
+        ARRAY("array") ,
         STRING("string") ,
-        STRING_ARRAY("string-array") ,
         DRAWABLE("drawable")
         ;
 
@@ -95,7 +95,7 @@ public final class Resource {
     }
 
     public String[] getStringArray(String name) {
-        return context.getResources().getStringArray(getResourceId(name, Type.STRING_ARRAY));
+        return context.getResources().getStringArray(getResourceId(name, Type.ARRAY));
     }
 
     public String[] getStringArray(int id) {
@@ -103,7 +103,7 @@ public final class Resource {
     }
 
     public int[] getIntegerArray(String name) {
-        return context.getResources().getIntArray(getResourceId(name, Type.INTEGER_ARRAY));
+        return context.getResources().getIntArray(getResourceId(name, Type.ARRAY));
     }
 
     public int[] getIntegerArray(int id) {
@@ -131,7 +131,7 @@ public final class Resource {
     }
 
     public TypedArray getTypedArray(String name) {
-        return context.getResources().obtainTypedArray(getResourceId(name , Type.TYPED_ARRAY));
+        return context.getResources().obtainTypedArray(getResourceId(name , Type.ARRAY));
     }
 
     public float getDimension(String name) {

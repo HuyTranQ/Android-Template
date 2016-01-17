@@ -2,7 +2,11 @@ package huytranq.template.views.activities;
 
 import android.content.Context;
 import android.os.Handler;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,6 +28,8 @@ import com.squareup.picasso.Picasso;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import huytranq.template.R;
@@ -31,6 +37,9 @@ import huytranq.template.models.User;
 import huytranq.template.presenters.asyncs.InsertUserThread;
 import huytranq.template.presenters.utilities.Resource;
 import huytranq.template.presenters.utilities.UserDatabase;
+import huytranq.template.views.fragments.BaseFragment;
+import huytranq.template.views.fragments.FuckFragment;
+import huytranq.template.views.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,8 +48,11 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private CollapsingToolbarLayout collapseToolbar;
     private CircleImageView avatar;
     private ImageView background;
+    private FragmentManager fragmentManager;
+    HashMap<Integer , BaseFragment> mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,49 +70,34 @@ public class MainActivity extends AppCompatActivity {
         View header = navigationView.getHeaderView(0);
         background = (ImageView) header.findViewById(R.id.background);
         avatar = (CircleImageView) header.findViewById(R.id.avatar);
+        fragmentManager = getSupportFragmentManager();
+        collapseToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapse);
 
         setUp();
     }
 
     private void setUp() {
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Hello");
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        collapseToolbar.setTitle("Shit");
+
+        mapFragment = BaseFragment.mapFragment(this);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 drawerLayout.closeDrawers();
-                switch (item.getItemId()) {
-                    case R.id.hello:
-                        Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
-                        toolbar.setTitle("Hello");
-                        break;
-                    case R.id.fuck_you:
-                        Toast.makeText(MainActivity.this, "Fuck you", Toast.LENGTH_SHORT).show();
-                        toolbar.setTitle("Fuck you");
-                        break;
-                    case R.id.nanana:
-                        Toast.makeText(MainActivity.this, "Nanana", Toast.LENGTH_SHORT).show();
-                        toolbar.setTitle("Nanana");
-                        break;
-                    case R.id.hohoho:
-                        Toast.makeText(MainActivity.this, "Ho ho ho", Toast.LENGTH_SHORT).show();
-                        toolbar.setTitle("Ho ho ho");
-                        break;
-                    case R.id.hehehe:
-                        Toast.makeText(MainActivity.this, "He he he", Toast.LENGTH_SHORT).show();
-                        toolbar.setTitle("He he he");
-                        break;
-                }
+                replaceFragment(mapFragment.get(item.getItemId()));
                 return true;
             }
         });
         navigationView.setCheckedItem(R.id.hello);
+        addFragment(mapFragment.get(R.id.hello));
         Picasso.with(this).load(R.drawable.background).into(background);
         Picasso.with(this).load(R.drawable.diablo).into(avatar);
 
@@ -134,6 +131,20 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 exit = false;
             }
-        } , 3000);
+        }, 3000);
+    }
+
+    void replaceFragment(BaseFragment fragment) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.activity_main_frameLayout, fragment);
+        transaction.commit();
+        toolbar.setTitle(fragment.getTitle());
+    }
+
+    void addFragment(BaseFragment fragment) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.activity_main_frameLayout , fragment);
+        transaction.commit();
+        toolbar.setTitle(fragment.getTitle());
     }
 }

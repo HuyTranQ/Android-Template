@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        id="tagFragment"
+        name="tagFragment">
+        <item>hello</item>
+        <item>fuck_you</item>
+    </string-array>
+</resources>
