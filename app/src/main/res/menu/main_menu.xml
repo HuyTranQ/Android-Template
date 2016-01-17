@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Home">
+        <menu>
+            <group
+                android:id="@+id/home"
+                android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/hello"
+                    android:title="Hello"
+                    android:icon="@drawable/menu1"/>
+
+                <item
+                    android:id="@+id/fuck_you"
+                    android:title="Fuck You"
+                    android:icon="@drawable/menu2"/>
+
+                <item
+                    android:id="@+id/nanana"
+                    android:title="Na Na Na"
+                    android:icon="@drawable/menu3"/>
+
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:title="Settings">
+        <menu>
+            <group
+                android:id="@+id/settings"
+                android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/hohoho"
+                    android:title="hehehe"
+                    android:icon="@drawable/menu4"/>
+
+                <item
+                    android:id="@+id/hehehe"
+                    android:title="Ho HO Ho"
+                    android:icon="@drawable/menu5"/>
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:title="Share">
+        <menu>
+            <group
+                android:id="@+id/group_share"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/facebook"
+                    android:title="Facebook"/>
+                <item
+                    android:id="@+id/twitter"
+                    android:title="Twitter"/>
+                <item
+                    android:id="@+id/tumblr"
+                    android:title="Tumblr."/>
+            </group>
+        </menu>
+
+    </item>
+
+    <item
+        android:title="About">
+        <menu>
+            <group
+                android:id="@+id/group_about"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/account"
+                    android:title="Your Account"/>
+                <item
+                    android:id="@+id/company"
+                    android:title="Our Company"/>
+            </group>
+        </menu>
+    </item>
+</menu>
